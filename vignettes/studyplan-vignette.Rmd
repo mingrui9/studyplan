@@ -1,0 +1,95 @@
+---
+title: "studyplan-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{studyplan-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(studyplan)
+```
+
+## Overview
+
+The studyplan package provides a simple but powerful set of tools to assist in the early stages of clinical trial design. Its primary functions focus on the two most critical aspects of study planning: determining the required sample size to achieve statistical power and evaluating study feasibility within a fixed budget.
+
+### 1. Sample Size Calculation
+
+The calculate_sample_size() function implements the standard power calculation for a two-sample comparison, with an adjustment for covariates. This is particularly useful for ANCOVA-based analyses where baseline characteristics are used to explain some of the variance.
+
+#### Parameters:
+
+-   power: The desired statistical power (e.g., 0.90 for 90%).
+
+-   alpha: The significance level, typically 0.05.
+
+-   effect_size_d: The standardized effect size you wish to detect. This is often expressed in standard deviation units.
+
+-   r_squared: The proportion of variance explained by covariates, typically estimated from prior data.
+
+#### Example:
+
+Let's replicate the sample size calculation for a study with a target of 90% power, an effect size of 0.54 SD, and an estimated R\^2 of 0.05.
+
+```{r}
+library(studyplan)
+
+n_per_group <- calculate_sample_size(
+  power = 0.90,
+  alpha = 0.05,
+  effect_size_d = 0.54,
+  r_squared = 0.05
+)
+
+total_n <- n_per_group * 2
+
+cat(paste("Required sample size per group:", n_per_group, "\n"))
+cat(paste("Required total sample size:", total_n, "\n"))
+
+```
+
+### 2. Budget Scenario Evaluation
+
+The evaluate_budget_scenarios() function is designed to explore the trade-offs between total enrollment and the size of an expensive subgroup (such as an MRI cohort), all while staying within a fixed budget.
+
+#### Parameters:
+
+-   total_budget: The total budget for the trial.
+
+-   cost_base: The base cost for a participant without the expensive subgroup visit.
+
+-   cost_mri: The total cost for a participant in the expensive subgroup.
+
+-   n_start, n_end, step: A range of total sample sizes to evaluate.
+
+#### Example:
+
+Using the \$1 million budget and cost parameters from our clinical trial planning, let's see which combinations of total participants and MRI subgroup sizes are feasible.
+
+```{r}
+scenarios <- evaluate_budget_scenarios(
+  total_budget = 1000000,
+  cost_base = 5000,
+  cost_mri = 15000,
+  n_start = 100,
+  n_end = 200,
+  step = 10
+)
+
+print(scenarios)
+```
+
+As you can see, the table highlights key trade-offs. For instance, a total sample size of 140 allows for 30 participants to be in the MRI subgroup, while a total sample size of 160 allows for 20 participants. This table is a powerful tool for making an informed decision about the study design.
+
+### Conclusion
+
+By combining statistical power calculations with financial modeling, the studyplan package empowers researchers to make data-driven decisions during the critical study planning phase.

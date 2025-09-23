@@ -1,0 +1,18 @@
+Package: studyplan
+Title: Statistical Analysis Plan
+Version: 0.1.0
+Authors@R: 
+    person("Mingrui", "Xu", , "rui9_666@163.com", role = c("aut", "cre"))
+Description: A tool for clinical trial planning, allowing users to
+    calculate required sample sizes, evaluate statistical power, and
+    analyze study feasibility based on budget constraints. It includes
+    functions for sample size calculations and for modeling the trade-offs
+    between total enrollment and the size of expensive subgroups.
+License: AGPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+VignetteBuilder: knitr
+Suggests: knitr, testthat
+Config/testthat/edition: 3
