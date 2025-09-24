@@ -1,55 +1,36 @@
-#' @title Evaluate Clinical Trial Budget Scenarios
+#' Evaluate Budget Scenarios
 #'
-#' @description This function evaluates different study configurations based on a fixed budget
-#'   and a range of total sample sizes. It calculates the number of participants
-#'   that can be included in an expensive subgroup (e.g., with MRIs) for each scenario.
+#' This function takes a data frame of budget scenarios and calculates the total cost for each scenario.
+#' It checks for invalid inputs and missing columns.
 #'
-#' @param total_budget The total budget for the study.
-#' @param cost_base The base cost per participant (e.g., for standard visits).
-#' @param cost_mri The cost for a participant with the expensive subgroup (e.g., with MRI visits).
-#' @param n_start The starting total sample size for the evaluation range.
-#' @param n_end The ending total sample size for the evaluation range.
-#' @param step The step size for the total sample size.
+#' @param df A data frame with columns `total_n`, `mri_n`, `cost_per_subject`, and `cost_per_mri`.
 #'
-#' @return A data frame containing the total sample size ($N$), the number of
-#'   participants with MRIs (\eqn{N_{MRI}}), and the total cost for each scenario.
+#' @return A data frame with a new column `total_cost` added.
 #' @export
 #'
 #' @examples
-#' # Evaluate scenarios for a $1M budget, assuming a 0.54 SD effect size
-#' evaluate_budget_scenarios(
-#'   total_budget = 1000000,
-#'   cost_base = 5000,
-#'   cost_mri = 15000,
-#'   n_start = 100,
-#'   n_end = 200,
-#'   step = 10
+#' budget_scenarios <- data.frame(
+#'   total_n = c(100, 150),
+#'   mri_n = c(10, 20),
+#'   cost_per_subject = c(500, 550),
+#'   cost_per_mri = c(1000, 1100)
 #' )
-evaluate_budget_scenarios <- function(total_budget, cost_base, cost_mri, n_start, n_end, step) {
-  if (total_budget <= 0) stop("Total budget must be a positive value.")
-  if (cost_base <= 0) stop("Base cost must be a positive value.")
-  if (cost_mri <= cost_base) stop("MRI cost must be greater than base cost.")
+#' evaluate_budget_scenarios(budget_scenarios)
 
-  n_total_range <- seq(n_start, n_end, by = step)
-  scenarios <- data.frame(
-    Total_N = integer(),
-    MRI_Subgroup = integer(),
-    Total_Cost = numeric()
-  )
-
-  for (n_total in n_total_range) {
-    n_mri <- (total_budget - (n_total * cost_base)) / (cost_mri - cost_base)
-
-    # Only include scenarios with a valid number of MRI participants
-    if (n_mri >= 0 && n_mri %% 1 == 0) {
-      total_cost <- (n_total - n_mri) * cost_base + n_mri * cost_mri
-      scenarios <- rbind(scenarios, data.frame(
-        Total_N = n_total,
-        MRI_Subgroup = n_mri,
-        Total_Cost = total_cost
-      ))
-    }
+evaluate_budget_scenarios <- function(df) {
+  # Check if df is a data frame
+  if (!is.data.frame(df)) {
+    stop("df must be a data frame.")
   }
 
-  return(scenarios)
+  # Check for required columns
+  required_columns <- c("total_n", "mri_n", "cost_per_subject", "cost_per_mri")
+  if (!all(required_columns %in% names(df))) {
+    stop("Data frame is missing required columns: ", paste(setdiff(required_columns, names(df)), collapse = ", "))
+  }
+
+  # Calculate total cost for each scenario
+  df$total_cost <- (df$total_n * df$cost_per_subject) + (df$mri_n * df$cost_per_mri)
+
+  return(df)
 }

@@ -76,19 +76,23 @@ The evaluate_budget_scenarios() function is designed to explore the trade-offs b
 Using the \$1 million budget and cost parameters from our clinical trial planning, let's see which combinations of total participants and MRI subgroup sizes are feasible.
 
 ```{r}
-scenarios <- evaluate_budget_scenarios(
-  total_budget = 1000000,
-  cost_base = 5000,
-  cost_mri = 15000,
-  n_start = 100,
-  n_end = 200,
-  step = 10
+library(studyplan)
+
+# Create a data frame for budget scenarios
+budget_df <- data.frame(
+  description = c("Scenario 1"),
+  total_n = c(140),
+  mri_n = c(30),
+  cost_per_subject = c(5000),
+  cost_per_mri = c(15000)
 )
 
-print(scenarios)
+# Evaluate the scenario
+evaluated_budget <- evaluate_budget_scenarios(budget_df)
+
+print(evaluated_budget)
 ```
 
-As you can see, the table highlights key trade-offs. For instance, a total sample size of 140 allows for 30 participants to be in the MRI subgroup, while a total sample size of 160 allows for 20 participants. This table is a powerful tool for making an informed decision about the study design.
 
 ### Conclusion
 

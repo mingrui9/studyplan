@@ -1,3 +1,4 @@
+# Load the package
 library(testthat)
 library(studyplan)
 
@@ -9,7 +10,7 @@ test_that("calculate_sample_size returns a numeric value and handles invalid inp
   # Test for invalid alpha
   expect_error(
     calculate_sample_size(alpha = "invalid", power = 0.8, effect_size = 0.5, r_squared = 0.5),
-    "alpha must be a numeric value"
+    "alpha must be a single numeric value."
   )
   expect_error(
     calculate_sample_size(alpha = 1.1, power = 0.8, effect_size = 0.5, r_squared = 0.5),
@@ -19,7 +20,7 @@ test_that("calculate_sample_size returns a numeric value and handles invalid inp
   # Test for invalid power
   expect_error(
     calculate_sample_size(alpha = 0.05, power = "invalid", effect_size = 0.5, r_squared = 0.5),
-    "power must be a numeric value"
+    "power must be a single numeric value."
   )
   expect_error(
     calculate_sample_size(alpha = 0.05, power = 1.1, effect_size = 0.5, r_squared = 0.5),

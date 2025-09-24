@@ -2,34 +2,26 @@
 % Please edit documentation in R/calculate_sample_size.R
 \name{calculate_sample_size}
 \alias{calculate_sample_size}
-\title{Calculate Required Sample Size for a Clinical Trial}
+\title{Calculate Sample Size for ANCOVA}
 \usage{
-calculate_sample_size(power, alpha, effect_size_d, r_squared)
+calculate_sample_size(alpha, power, effect_size_d, r_squared)
 }
 \arguments{
-\item{power}{The desired statistical power (e.g., 0.90 for 90\%).}
+\item{alpha}{The significance level, typically 0.05.}
 
-\item{alpha}{The significance level (e.g., 0.05).}
+\item{power}{The desired statistical power, e.g., 0.8 for 80\%.}
 
-\item{effect_size_d}{The standardized effect size (Cohen's d).}
+\item{effect_size_d}{The standardized effect size (Cohen's d) you wish to detect.}
 
-\item{r_squared}{The expected $R^2$ value from the ANCOVA model, representing the
-proportion of variance explained by covariates.}
+\item{r_squared}{The proportion of variance in the outcome explained by the covariates.}
 }
 \value{
-The required sample size per group (rounded up to the nearest integer).
+The required sample size per group.
 }
 \description{
 This function calculates the required sample size per group for a two-sample
-comparison (e.g., a t-test or ANCOVA) to achieve a desired level of statistical power.
-The formula adjusts for the variance explained by covariates ($R^2$).
+comparison with a continuous outcome, adjusting for covariates.
 }
 \examples{
-# Calculate sample size for 90\% power, 0.54 SD effect, and R^2=0.05
-calculate_sample_size(
-  power = 0.90,
-  alpha = 0.05,
-  effect_size_d = 0.54,
-  r_squared = 0.05
-)
+calculate_sample_size(alpha = 0.05, power = 0.8, effect_size_d = 0.5, r_squared = 0.2)
 }

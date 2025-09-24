@@ -2,47 +2,26 @@
 % Please edit documentation in R/evaluate_budget_scenarios.R
 \name{evaluate_budget_scenarios}
 \alias{evaluate_budget_scenarios}
-\title{Evaluate Clinical Trial Budget Scenarios}
+\title{Evaluate Budget Scenarios}
 \usage{
-evaluate_budget_scenarios(
-  total_budget,
-  cost_base,
-  cost_mri,
-  n_start,
-  n_end,
-  step
-)
+evaluate_budget_scenarios(df)
 }
 \arguments{
-\item{total_budget}{The total budget for the study.}
-
-\item{cost_base}{The base cost per participant (e.g., for standard visits).}
-
-\item{cost_mri}{The cost for a participant with the expensive subgroup (e.g., with MRI visits).}
-
-\item{n_start}{The starting total sample size for the evaluation range.}
-
-\item{n_end}{The ending total sample size for the evaluation range.}
-
-\item{step}{The step size for the total sample size.}
+\item{df}{A data frame with columns \code{total_n}, \code{mri_n}, \code{cost_per_subject}, and \code{cost_per_mri}.}
 }
 \value{
-A data frame containing the total sample size ($N$), the number of
-participants with MRIs (\eqn{N_{MRI}}), and the total cost for each scenario.
+A data frame with a new column \code{total_cost} added.
 }
 \description{
-This function evaluates different study configurations based on a fixed budget
-and a range of total sample sizes. It calculates the number of participants
-that can be included in an expensive subgroup (e.g., with MRIs) for each scenario.
+This function takes a data frame of budget scenarios and calculates the total cost for each scenario.
+It checks for invalid inputs and missing columns.
 }
 \examples{
-# Evaluate scenarios for a $1M budget, assuming a 0.54 SD effect size
-evaluate_budget_scenarios(
-  total_budget = 1000000,
-  cost_base = 5000,
-  cost_mri = 15000,
-  n_start = 100,
-  n_end = 200,
-  step = 10
+budget_scenarios <- data.frame(
+  total_n = c(100, 150),
+  mri_n = c(10, 20),
+  cost_per_subject = c(500, 550),
+  cost_per_mri = c(1000, 1100)
 )
+evaluate_budget_scenarios(budget_scenarios)
 }
