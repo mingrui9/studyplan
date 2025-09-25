@@ -93,7 +93,6 @@ evaluated_budget <- evaluate_budget_scenarios(budget_df)
 print(evaluated_budget)
 ```
 
-
 ### Conclusion
 
 By combining statistical power calculations with financial modeling, the studyplan package empowers researchers to make data-driven decisions during the critical study planning phase.

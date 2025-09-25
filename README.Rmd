@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/jh-adv-data-sci/project-4-r-packages-mingrui9/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jh-adv-data-sci/project-4-r-packages-mingrui9/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/jh-adv-data-sci/project-4-r-packages-mingrui9/graph/badge.svg)](https://app.codecov.io/gh/jh-adv-data-sci/project-4-r-packages-mingrui9)
 <!-- badges: end -->
 
 The goal of studyplan is to ...
