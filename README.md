@@ -10,7 +10,7 @@
 coverage](https://codecov.io/gh/jh-adv-data-sci/project-4-r-packages-mingrui9/graph/badge.svg)](https://app.codecov.io/gh/jh-adv-data-sci/project-4-r-packages-mingrui9)
 <!-- badges: end -->
 
-The goal of studyplan is to …
+The goal of studyplan is to
 
 ## Installation
 

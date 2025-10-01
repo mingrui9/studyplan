@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/jh-adv-data-sci/project-4-r-packages-mingrui9/graph/badge.svg)](https://app.codecov.io/gh/jh-adv-data-sci/project-4-r-packages-mingrui9)
 <!-- badges: end -->
 
-The goal of studyplan is to ...
+The goal of studyplan is to 
 
 ## Installation
 
@@ -45,6 +45,8 @@ What is special about using `README.Rmd` instead of just `README.md`? You can in
 ```{r cars}
 summary(cars)
 ```
+
+
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
 
